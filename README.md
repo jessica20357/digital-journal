@@ -4,10 +4,6 @@
 
 [![Watch the banana fish journal demo](public/demo/journal-demo-poster.jpg)](public/demo/journal-demo.mp4)
 
-Click the cover above to watch the full **banana fish** demo. It showcases photo collages, background removal, sticker effects, washi tape decoration, text layouts, and the journal reading experience.
-
-The video runs for approximately **2 minutes and 26 seconds**. The included video preserves the full content and original audio, uses H.264 / AAC MP4, and is scaled to 1920 pixels wide for local playback.
-
 - [View or download the MP4](public/demo/journal-demo.mp4)
 - After starting the app locally, open the [local video player](http://127.0.0.1:5173/demo/).
 
