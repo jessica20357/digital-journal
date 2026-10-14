@@ -1,11 +1,5 @@
 # 页间 · 数字手账
 
-把照片、文字、贴纸、天气和音乐，拼成属于自己的一页生活。
-
-**[在线体验](https://jessica20357.github.io/digital-journal/)** · **[观看完整案例视频](https://jessica20357.github.io/digital-journal/demo/)** · **[代码结构](docs/architecture.md)**
-
-![发布状态](https://github.com/jessica20357/digital-journal/actions/workflows/deploy.yml/badge.svg)
-
 ## 案例视频
 
 [![点击观看数字手账制作案例](public/demo/journal-demo-poster.jpg)](https://jessica20357.github.io/digital-journal/demo/)
@@ -92,21 +86,3 @@ digital-journal/
 ```
 
 技术栈为 **React、TypeScript、Vite、Three.js、Canvas / WebGL 和 IndexedDB**。详细职责与保存流程见 [架构说明](docs/architecture.md)。
-
-## 数据与媒体
-
-手账内容、图片和页面背景音乐保存在当前浏览器的 IndexedDB 中，天气和音量等偏好保存在 localStorage 中。网站不提供账号或云同步。切换浏览器、换设备、改变网站来源或清除网站数据后，不会自动恢复另一处的文档；本地开发地址的数据也不会自动迁移到在线地址。
-
-AI 贴纸入口目前是演示交互，尚未连接真实生成服务。一键去背景根据边缘背景颜色进行处理，复杂背景可以使用手动裁剪。页面内导入的视频目前使用临时浏览器地址，重新打开网站后可能需要重新导入；README 的案例视频作为静态资源发布，可以持续访问。
-
-## GitHub Pages 发布
-
-推送到 `main` 分支后，`.github/workflows/deploy.yml` 会安装锁定依赖、检查格式、构建项目，并发布 `dist/`。
-
-仓库设置中，进入 **Settings → Pages → Build and deployment**，将 **Source** 设为 **GitHub Actions**。站点地址为：
-
-<https://jessica20357.github.io/digital-journal/>
-
-案例播放页在 `/digital-journal/demo/`。部署到其他仓库时，修改 `vite.config.ts` 的 Pages 基础路径，以及本文件、`package.json` 中的链接。
-
-参考：[GitHub Pages 自定义工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
