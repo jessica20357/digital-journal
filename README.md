@@ -2,15 +2,14 @@
 
 ## Demo Video
 
-[![Watch the banana fish journal demo](public/demo/journal-demo-poster.jpg)](https://jessica20357.github.io/digital-journal/demo/)
+[![Watch the banana fish journal demo](public/demo/journal-demo-poster.jpg)](public/demo/journal-demo.mp4)
 
 Click the cover above to watch the full **banana fish** demo. It showcases photo collages, background removal, sticker effects, washi tape decoration, text layouts, and the journal reading experience.
 
-The video runs for approximately **2 minutes and 26 seconds**. The web version preserves the full content and original audio, uses H.264 / AAC MP4, and is scaled to 1920 pixels wide for online playback.
+The video runs for approximately **2 minutes and 26 seconds**. The included video preserves the full content and original audio, uses H.264 / AAC MP4, and is scaled to 1920 pixels wide for local playback.
 
-- [Open the video player](https://jessica20357.github.io/digital-journal/demo/)
-- [Play the MP4 directly](https://jessica20357.github.io/digital-journal/demo/journal-demo.mp4)
-- [View the video file in this repository](public/demo/journal-demo.mp4)
+- [View or download the MP4](public/demo/journal-demo.mp4)
+- After starting the app locally, open the [local video player](http://127.0.0.1:5173/demo/).
 
 ## Features
 
@@ -42,27 +41,37 @@ npm run dev
 
 Open the local URL shown in your terminal, usually `http://127.0.0.1:5173/`.
 
-| Command                 | Purpose                                        |
-| ----------------------- | ---------------------------------------------- |
-| `npm run dev`           | Start the local development server             |
-| `npm run typecheck`     | Check TypeScript types                         |
-| `npm run format`        | Format source code and documentation           |
-| `npm run format:check`  | Check source code and documentation formatting |
-| `npm run build`         | Build a static site served from the root path  |
-| `npm run build:pages`   | Build for GitHub Pages at `/digital-journal/`  |
-| `npm run preview:pages` | Preview the GitHub Pages build locally         |
-| `npm run preview`       | Preview a root-path build locally              |
+Journal editing runs on your computer. Your documents and media are saved in your browser's local storage; use the same browser and local address to keep accessing them.
+
+You can also download the **local app package** from [Releases](https://github.com/jessica20357/digital-journal/releases/latest). Extract it, install Node.js, and run:
+
+```bash
+node scripts/start-local.mjs
+```
+
+Then open `http://127.0.0.1:5173/`. Keep the terminal open while using the app. The local package already includes the built app and demo video, so it does not need `npm ci`. Open the app through the local server rather than double-clicking `index.html`.
+
+| Command                | Purpose                                        |
+| ---------------------- | ---------------------------------------------- |
+| `npm run dev`          | Start the local development server             |
+| `npm run typecheck`    | Check TypeScript types                         |
+| `npm run format`       | Format source code and documentation           |
+| `npm run format:check` | Check source code and documentation formatting |
+| `npm run build`        | Build the app for local use                    |
+| `npm start`            | Serve the built app locally on port 5173       |
+| `npm run preview`      | Preview a build locally on port 4173           |
 
 ## Code Structure
 
 ```text
 digital-journal/
-├── .github/workflows/deploy.yml   # Automated build and deployment
+├── .github/workflows/check.yml    # Code checks and build validation
 ├── docs/architecture.md          # Module responsibilities and data flow
 ├── public/
 │   ├── audio/page-flip.mp3        # Page-turn sound
 │   ├── demo/                     # Video player, demo video, and poster
 │   └── journal-icon.svg          # Site icon
+├── scripts/start-local.mjs       # Local server for the built app
 ├── src/
 │   ├── app/                      # App startup and bookshelf/editor coordination
 │   ├── assets/                   # Default scenery artwork
