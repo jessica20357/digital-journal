@@ -2,7 +2,9 @@
 
 ## 案例视频
 
-[![观看 banana fish 手账案例](public/demo/journal-demo-poster.jpg)](public/demo/journal-demo.mp4)
+**banana fish**
+
+https://github.com/user-attachments/assets/8bc47dca-747f-4f95-b0be-644eb57b9549
 
 - [查看或下载案例视频](public/demo/journal-demo.mp4)
 - 在本地启动项目后，打开[本地视频播放页](http://127.0.0.1:5173/demo/)。
