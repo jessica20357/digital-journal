@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#edf0e8" />
+    <title>制作案例 · 页间数字手账</title>
+    <link rel="icon" href="../journal-icon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        font-family: system-ui, 'Microsoft YaHei', sans-serif;
+        color: #343f35;
+        background: #edf0e8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      main {
+        width: min(1200px, calc(100% - 40px));
+        margin: 40px auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .eyebrow {
+        color: #75826f;
+        letter-spacing: 0.2em;
+        font-size: 12px;
+      }
+      h1 {
+        margin: 8px 0 12px;
+        font-size: clamp(24px, 4vw, 36px);
+        font-weight: 500;
+      }
+      p {
+        color: #75826f;
+        line-height: 1.8;
+      }
+      a {
+        color: #44674b;
+        text-underline-offset: 4px;
+      }
+      .back {
+        flex: none;
+        padding: 12px 18px;
+        border: 1px solid #cdd6c6;
+        border-radius: 30px;
+        text-decoration: none;
+        background: #f9faf5;
+      }
+      video {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: 24px;
+        border-radius: 16px;
+        background: #17231d;
+        box-shadow: 0 18px 60px #45534126;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        font-size: 14px;
+      }
+      @media (max-width: 600px) {
+        main {
+          width: calc(100% - 24px);
+          margin-top: 24px;
+        }
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        video {
+          border-radius: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <span class="eyebrow">页间 · DIGITAL JOURNAL</span>
+          <h1>把喜欢的片段，拼成一页生活。</h1>
+          <p>《10月14日》完整制作案例 · 约 2 分 26 秒</p>
+        </div>
+        <a class="back" href="../">开始制作手账 →</a>
+      </header>
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="journal-demo-poster.jpg"
+        aria-label="数字手账制作案例视频"
+      >
+        <source src="journal-demo.mp4" type="video/mp4" />
+        你的浏览器不支持视频播放，可以<a href="journal-demo.mp4">下载案例视频</a>。
+      </video>
+      <footer>
+        <a href="journal-demo.mp4" download="页间-制作案例.mp4">下载完整视频</a>
+        <a href="https://github.com/jessica20357/digital-journal">查看项目与使用说明</a>
+      </footer>
+    </main>
+  </body>
+</html>

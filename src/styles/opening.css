@@ -1,0 +1,135 @@
+.book-opening-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: rgba(28, 34, 35, 0);
+  backdrop-filter: blur(4px);
+  animation: opening-backdrop 1.92s ease both;
+}
+
+.book-opening-spread {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: min(70vw, 900px);
+  height: min(66vh, 700px);
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center;
+  animation: opening-spread 1.92s cubic-bezier(0.2, 0.78, 0.22, 1) both;
+  filter: drop-shadow(0 28px 32px rgba(27, 28, 24, 0.3));
+}
+
+.opening-book-canvas {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.opening-book-fallback {
+  position: absolute;
+  inset: 3% 0;
+  perspective: 1400px;
+}
+
+.opening-book-fallback::before,
+.opening-book-fallback::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, #e7e2d5, #faf8f0 10%, #fbf9f2 90%, #ddd7ca);
+  box-shadow: inset 0 0 0 1px #d4cebf;
+}
+
+.opening-book-fallback::before {
+  left: 0;
+}
+.opening-book-fallback::after {
+  right: 0;
+}
+
+.opening-book-fallback-front,
+.opening-book-fallback-back {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  background-position: center;
+  background-size: cover;
+  border: 1px solid #d4cebf;
+  border-radius: 0 5px 5px 0;
+  animation: opening-fallback-turn 1.25s cubic-bezier(0.25, 0.7, 0.25, 1) both;
+}
+
+.opening-book-fallback-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(90deg, #e9e3d7, #f8f5ed 9%, #f7f3e9 92%, #d9d2c5);
+}
+
+@keyframes opening-backdrop {
+  0% {
+    background-color: rgba(28, 34, 35, 0);
+  }
+  12% {
+    background-color: rgba(28, 34, 35, 0.34);
+  }
+  100% {
+    background-color: rgba(28, 34, 35, 0.34);
+  }
+}
+
+@keyframes opening-spread {
+  0% {
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+  42% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.012);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes opening-fallback-turn {
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+
+.opening-book-fallback-back {
+  animation-name: opening-fallback-back-turn;
+}
+@keyframes opening-fallback-back-turn {
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .book-opening-spread {
+    width: min(88vw, 620px);
+    height: min(58vh, 580px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-opening-overlay,
+  .book-opening-spread,
+  .opening-book-fallback-front,
+  .opening-book-fallback-back {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}

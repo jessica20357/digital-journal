@@ -1,0 +1,40 @@
+{
+  "name": "digital-journal",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc && vite build",
+    "build:pages": "tsc && vite build --mode github-pages",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src docs README.md package.json vite.config.ts tsconfig.json index.html .github .prettierrc.json public/demo/index.html",
+    "format:check": "prettier --check src docs README.md package.json vite.config.ts tsconfig.json index.html .github .prettierrc.json public/demo/index.html",
+    "preview:pages": "vite preview --host 127.0.0.1 --mode github-pages"
+  },
+  "dependencies": {
+    "lucide-react": "^1.24.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "prettier": "^3.9.10",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0"
+  },
+  "description": "页间：带天气、贴纸、手绘与背景音乐的数字手账",
+  "homepage": "https://jessica20357.github.io/digital-journal/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessica20357/digital-journal.git"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
