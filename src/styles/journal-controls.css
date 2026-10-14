@@ -1871,7 +1871,6 @@
   resize: none;
   border-color: transparent !important;
   outline: 0 !important;
-  background: transparent !important;
 }
 .reading-mode .canvas-text-box textarea {
   pointer-events: none;
