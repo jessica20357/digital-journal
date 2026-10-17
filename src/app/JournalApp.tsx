@@ -439,6 +439,15 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
     handle.parentElement?.classList.contains('image-transform-controls')
       ? imageElementsRef.current.get(handle.parentElement.dataset.imageId!) || null
       : handle.parentElement;
+  const controlScaleStyle = (scaleX: number, scaleY = scaleX): CSSProperties =>
+    ({
+      '--control-inverse-scale-x': 1 / Math.max(0.1, scaleX),
+      '--control-inverse-scale-y': 1 / Math.max(0.1, scaleY),
+    }) as CSSProperties;
+  const syncControlScale = (element: HTMLElement, scaleX: number, scaleY = scaleX) => {
+    element.style.setProperty('--control-inverse-scale-x', String(1 / Math.max(0.1, scaleX)));
+    element.style.setProperty('--control-inverse-scale-y', String(1 / Math.max(0.1, scaleY)));
+  };
   const syncImageControls = (element: HTMLElement) => {
     const controls = imageControlsRef.current;
     if (!controls || imageElementsRef.current.get(controls.dataset.imageId!) !== element) return;
@@ -448,6 +457,9 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
       transform: element.style.transform,
       translate: element.style.translate,
     });
+    for (const property of ['--control-inverse-scale-x', '--control-inverse-scale-y']) {
+      controls.style.setProperty(property, element.style.getPropertyValue(property));
+    }
   };
   const effectImages = [
     ...(page.photo ? [{ id: 'primary', name: '图片 1' }] : []),
@@ -2133,6 +2145,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
           top: `${resize.nextPosition.y}%`,
           transform: `rotate(${resize.rotation}deg) scale(${scaleX}, ${scaleY})`,
         });
+        syncControlScale(resize.element, scaleX, scaleY);
         syncImageControls(resize.element);
         return;
       }
@@ -2140,6 +2153,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
       const scale = Math.max(0.35, Math.min(3.5, resize.scale + delta));
       resize.nextScale = scale;
       resize.element.style.transform = `scale(${scale})`;
+      syncControlScale(resize.element, scale);
       return;
     }
     if (!dragRef.current) return;
@@ -4229,6 +4243,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                     className={`page-heading ${selected === 'title' && mode === 'edit' && !hideTools ? 'selected' : ''}`}
                     style={{
                       ...componentStyle('title', { x: 54.5, y: 10.5 }),
+                      ...controlScaleStyle(page.titleScale ?? 1),
                       transform: `scale(${page.titleScale ?? 1})`,
                       transformOrigin: 'left top',
                     }}
@@ -4316,6 +4331,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                       left: `${page.mediaPos.x}%`,
                       top: `${page.mediaPos.y}%`,
                       width: `${page.mediaWidth ?? 22.5}%`,
+                      ...controlScaleStyle(page.mediaScale, page.mediaScaleY ?? page.mediaScale),
                       zIndex: mediaItemZIndex(page, 'primary'),
                       transform: `rotate(${page.mediaRotation ?? 0}deg) scale(${page.mediaScale}, ${page.mediaScaleY ?? page.mediaScale})`,
                     }}
@@ -4361,6 +4377,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                         height: `${page.mediaHeight ?? 30}%`,
                         '--canvas-image-width': `${page.mediaWidth ?? 22.5}%`,
                         '--canvas-image-height': `${page.mediaHeight ?? 30}%`,
+                        ...controlScaleStyle(page.mediaScale, page.mediaScaleY ?? page.mediaScale),
                         zIndex: mediaItemZIndex(page, 'primary'),
                         transform: `rotate(${page.mediaRotation ?? 0}deg) scale(${page.mediaScale}, ${page.mediaScaleY ?? page.mediaScale})`,
                         '--sticker-outline-color': page.stickerOutlineColor || '#fffdf7',
@@ -4391,6 +4408,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                     data-layer-locked={isLayerLocked('media')}
                     className={`memory-photo ${selected === 'media' && !selectedCanvasImageId && mode === 'edit' && !hideTools ? 'selected' : ''}`}
                     style={{
+                      ...controlScaleStyle(page.mediaScale, page.mediaScaleY ?? page.mediaScale),
                       left: `${page.mediaPos.x}%`,
                       top: `${page.mediaPos.y}%`,
                       zIndex: mediaItemZIndex(page, 'primary'),
@@ -4586,6 +4604,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                             height: `${image.height ?? 30}%`,
                             '--canvas-image-width': `${image.width ?? 22.5}%`,
                             '--canvas-image-height': `${image.height ?? 30}%`,
+                            ...controlScaleStyle(image.scale, image.scaleY ?? image.scale),
                             zIndex: mediaItemZIndex(page, image.id),
                             transform: `rotate(${image.rotation ?? 0}deg) scale(${image.scale}, ${image.scaleY ?? image.scale})`,
                             '--sticker-outline-color': image.stickerOutlineColor || '#fffdf7',
@@ -4621,6 +4640,10 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                         x: Math.min(92, page.mediaPos.x + 14),
                         y: page.mediaPos.y + 29,
                       }),
+                      ...controlScaleStyle(
+                        page.stickerScale ?? 1,
+                        page.stickerScaleY ?? page.stickerScale ?? 1,
+                      ),
                       zIndex: componentLayerZIndex(page, 'sticker'),
                       transform: `scale(${page.stickerScale ?? 1}, ${page.stickerScaleY ?? page.stickerScale ?? 1})`,
                       pointerEvents: mode === 'edit' ? 'auto' : 'none',
@@ -4842,6 +4865,10 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                       top: `${imageControlData.y}%`,
                       width: `${imageControlData.width ?? 22.5}%`,
                       height: `${imageControlData.height ?? 30}%`,
+                      ...controlScaleStyle(
+                        imageControlData.scale,
+                        imageControlData.scaleY ?? imageControlData.scale,
+                      ),
                       transform: `rotate(${imageControlData.rotation ?? 0}deg) scale(${imageControlData.scale}, ${imageControlData.scaleY ?? imageControlData.scale})`,
                     }}
                   >

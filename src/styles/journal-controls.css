@@ -1944,6 +1944,11 @@
   pointer-events: auto;
   touch-action: none;
 }
+/* Cancel the artwork's scale on controls, including independent X/Y stretching. */
+.journal-page :is(.component-move-handle, .sticker-resize-handle, .sticker-rotate-handle) {
+  transform: scale(var(--control-inverse-scale-x, 1), var(--control-inverse-scale-y, 1));
+  transform-origin: center;
+}
 .journal-page .photo-sticker.selected {
   outline: none;
 }
