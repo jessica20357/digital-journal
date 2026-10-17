@@ -1091,9 +1091,12 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
       ),
     });
   };
-  const syncPrimaryMediaBounds = (imageElement: HTMLImageElement) => {
+  const syncPrimaryMediaBounds = (mediaElement: HTMLImageElement | HTMLVideoElement) => {
     const canvas = canvasRef.current?.getBoundingClientRect();
-    const naturalAspectRatio = imageElement.naturalWidth / imageElement.naturalHeight;
+    const naturalAspectRatio =
+      mediaElement instanceof HTMLVideoElement
+        ? mediaElement.videoWidth / mediaElement.videoHeight
+        : mediaElement.naturalWidth / mediaElement.naturalHeight;
     if (!canvas || !naturalAspectRatio || !Number.isFinite(naturalAspectRatio)) return;
     const { width, height } = fittedImageBox(
       page.mediaWidth,
@@ -1431,7 +1434,16 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                     stickerDimensional: false,
                     video: '',
                   }
-                : { video: url, photo: '' }),
+                : {
+                    video: url,
+                    photo: '',
+                    mediaWidth: undefined,
+                    mediaHeight: undefined,
+                    mediaAspectRatio: undefined,
+                    mediaScale: 1,
+                    mediaScaleY: 1,
+                    mediaRotation: 0,
+                  }),
               hiddenComponents: (p.hiddenComponents || []).filter((item) => item !== 'media'),
               removedComponents: (p.removedComponents || []).filter((item) => item !== 'media'),
             }
@@ -1442,7 +1454,7 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
     setSelected('media');
     setSelectedCanvasTextId(null);
     setSelectedCanvasImageId(null);
-    if (kind === 'image') setCropMode(true);
+    setCropMode(kind === 'image');
     setToast(
       kind === 'image' ? '沿着图片主体描边，生成透明贴纸；取消可直接使用原图' : '视频贴纸已添加',
     );
@@ -4303,14 +4315,17 @@ export function JournalApp({ librarySeed }: { librarySeed: LibrarySeed }) {
                     style={{
                       left: `${page.mediaPos.x}%`,
                       top: `${page.mediaPos.y}%`,
+                      width: `${page.mediaWidth ?? 22.5}%`,
                       zIndex: mediaItemZIndex(page, 'primary'),
-                      transform: `scale(${page.mediaScale}, ${page.mediaScaleY ?? page.mediaScale})`,
+                      transform: `rotate(${page.mediaRotation ?? 0}deg) scale(${page.mediaScale}, ${page.mediaScaleY ?? page.mediaScale})`,
                     }}
                     onPointerDown={(e) => pointerDown(e, 'media')}
                   >
                     <video
                       src={page.video}
                       className="video-sticker"
+                      aria-label="视频贴纸"
+                      onLoadedMetadata={(event) => syncPrimaryMediaBounds(event.currentTarget)}
                       muted
                       loop
                       autoPlay

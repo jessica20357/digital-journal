@@ -1858,8 +1858,7 @@ button:disabled {
     margin-left: 3px;
   }
   .memory-photo,
-  .photo-sticker,
-  .video-sticker {
+  .photo-sticker {
     width: 43%;
     height: 34%;
   }
@@ -2699,8 +2698,7 @@ button:disabled {
     display: none;
   }
   .page-shadow.book-spread .book-right-leaf .memory-photo,
-  .page-shadow.book-spread .book-right-leaf .photo-sticker,
-  .page-shadow.book-spread .book-right-leaf .video-sticker {
+  .page-shadow.book-spread .book-right-leaf .photo-sticker {
     width: 45%;
     height: 32%;
   }

@@ -1002,8 +1002,7 @@
   right: 4.5%;
 }
 .page-shadow.book-spread .book-right-leaf .memory-photo,
-.page-shadow.book-spread .book-right-leaf .photo-sticker,
-.page-shadow.book-spread .book-right-leaf .video-sticker {
+.page-shadow.book-spread .book-right-leaf .photo-sticker {
   width: 22.5% !important;
 }
 .page-shadow.book-spread .book-right-leaf .canvas-image-item {
@@ -2208,8 +2207,8 @@
 .video-sticker-wrap {
   position: absolute;
   z-index: 4;
-  width: 40%;
-  height: 38%;
+  width: 22.5%;
+  height: auto;
   border: 7px solid #fffefa;
   background: #fffefa;
   box-shadow: 0 5px 13px #62563c2b;
@@ -2223,9 +2222,9 @@
   position: relative;
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   border: 0;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: none;
   touch-action: none;
   pointer-events: none;
